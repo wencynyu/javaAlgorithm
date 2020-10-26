@@ -11,7 +11,7 @@ public class SearchOrderedArray {
         int begin = 0, end = arr.length - 1;
         int mid;
         while (begin <= end){
-            mid = begin + (end - begin) >> 2;
+            mid = begin + (end - begin) / 2;
             int midVal = arr[mid];
             if (midVal == target){
                 return mid;

@@ -10,6 +10,7 @@ import java.util.Queue;
  *
  * 给定课程总量以及它们的先决条件，请你判断是否可能完成所有课程的学习？
  */
+@SuppressWarnings("all")
 public class CourseProblem {
     
     // 拓扑排序的简单应用，主要使用到了队列的bfs实现
