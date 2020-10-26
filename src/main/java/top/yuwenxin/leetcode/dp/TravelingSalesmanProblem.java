@@ -1,11 +1,10 @@
 package top.yuwenxin.leetcode.dp;
 
-import java.util.Scanner;
-
 /**
  * TSP旅行商问题：原点出发，经过所有节点，最后要回到原点，求最小花费
  * 输入：城市间的车票价钱 n行n列的矩阵 cost[n][n]
  * 输出：最小花费
+ * 这也太离谱了吧TAT
  */
 public class TravelingSalesmanProblem {
     // todo:理解旅行商问题
