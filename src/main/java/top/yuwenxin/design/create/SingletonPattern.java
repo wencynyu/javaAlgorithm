@@ -45,6 +45,7 @@ class Singleton2 {
 }
 
 class Singleton3 {
+    //volatile 修饰instance保证变量的线程可见性，工作内存中对该变量写操作后会立即同步至主内存中
     private volatile static Singleton3 instance = null;
     private Singleton3(){}
 
