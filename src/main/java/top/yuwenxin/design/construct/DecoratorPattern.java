@@ -13,16 +13,16 @@ package top.yuwenxin.design.construct;
  */
 public class DecoratorPattern {
     public static void main(String[] args) {
-        DecoratorObj decoratorObj = new DecoratorObj(new DecoratedSubject());
+        DecoratorObj decoratorObj = new DecoratorObj(new Subject());
         decoratorObj.enhance();
     }
 }
 
-interface Decorator{
+interface Origin {
     void print();
 }
 
-class DecoratedSubject implements Decorator{
+class Subject implements Origin {
     @Override
     public void print() {
         System.out.println("print...");
@@ -30,26 +30,24 @@ class DecoratedSubject implements Decorator{
 }
 
 abstract class AbsDecorator{
-    Decorator decorator;
-    public AbsDecorator(Decorator decorator){
-        this.decorator = decorator;
+    Origin origin;
+    public AbsDecorator(Origin origin){
+        this.origin = origin;
     }
 
     abstract void enhance();
 }
 
 class DecoratorObj extends AbsDecorator {
-    Decorator decorator;
+    Origin origin;
 
-    public DecoratorObj(Decorator decorator) {
-        super(decorator);
+    public DecoratorObj(Origin origin) {
+        super(origin);
     }
 
     @Override
     void enhance() {
         System.out.println("enhance...");
-        decorator.print();
+        origin.print();
     }
-
-
 }
