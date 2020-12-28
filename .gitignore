@@ -40,3 +40,4 @@ fabric.properties
 *.rar
 hs_err_pid*
 /src/test/
+/target/
