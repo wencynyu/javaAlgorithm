@@ -36,12 +36,12 @@ public class StockProblem {
         int[][][] dp = new int[n + 1][k + 1][2];
 
         for (int i = 1; i < dp[0].length; i++) {
-            dp[0][i][0] = 0;
-            dp[0][i][1] = -nums[0];
+            dp[1][i][0] = 0;
+            dp[1][i][1] = -nums[0];
         }
 
         for (int i = 2; i < dp.length; i++) {
-            for (int j = dp[0].length; j > 0; j--) {
+            for (int j = dp[0].length - 1; j > 0; j--) {
                 dp[i][j][0] = Math.max(dp[i-1][j][0], dp[i-1][j][1] + nums[i - 1]);
                 dp[i][j][1] = Math.max(dp[i-1][j][1], dp[i-1][j-1][0] - nums[i - 1]);
             }
