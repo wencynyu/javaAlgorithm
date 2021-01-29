@@ -20,5 +20,18 @@
             <artifactId>protobuf-java</artifactId>
             <version>3.14.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
     </dependencies>
 </project>
