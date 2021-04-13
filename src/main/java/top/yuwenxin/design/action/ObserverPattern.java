@@ -12,6 +12,7 @@ public class ObserverPattern {
         Subject subject = new Subject();
 
         // 构造方法中执行了订阅attach方法与subject绑定
+        // 也可以通过触发系统事件来进行attach
         new HexObserver(subject);
         new OctalObserver(subject);
         new BinaryObserver(subject);

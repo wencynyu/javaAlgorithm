@@ -11,6 +11,7 @@ import io.netty.util.CharsetUtil;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
     public static void main(String[] args) {
@@ -27,8 +28,10 @@ public class NettyClient {
                                 socketChannel.pipeline().addLast(new NettyClientHandler());
                             }
                         });
-                    ChannelFuture future = bootstrap.connect().sync();
-                    future.channel().closeFuture().sync();
+                    while (true){
+                        ChannelFuture future = bootstrap.connect().sync();
+                        future.channel().closeFuture().sync();
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {

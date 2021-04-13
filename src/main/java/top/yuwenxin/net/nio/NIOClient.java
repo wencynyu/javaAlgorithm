@@ -71,7 +71,7 @@ public class NIOClient {
 
                                 // 当前key为可write
                                 if (key.isWritable()) {
-                                    writeBuffer.put(("hello server, now is " + t).getBytes("utf-8"));
+                                    writeBuffer.put(("hello server, now is " + t + "\n").getBytes("utf-8"));
                                     writeBuffer.flip();
                                     sc.write(writeBuffer);
                                     writeBuffer.clear();

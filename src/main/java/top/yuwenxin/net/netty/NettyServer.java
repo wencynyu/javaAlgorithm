@@ -13,15 +13,15 @@ import java.net.InetSocketAddress;
 
 public class NettyServer {
     public static void main(String[] args) {
-        NettyServerHandler serverHandler = new NettyServerHandler();
-        EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors() * 2);
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
-            bootstrap.group(group).channel(NioServerSocketChannel.class)
+            bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                 .localAddress(new InetSocketAddress(8000))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        socketChannel.pipeline().addLast(serverHandler);
+                        socketChannel.pipeline().addLast(new NettyServerHandler());
                     }
                 });
             ChannelFuture future = bootstrap.bind().sync();
@@ -30,7 +30,8 @@ public class NettyServer {
             e.printStackTrace();
         }finally {
             try {
-                group.shutdownGracefully().sync();
+                bossGroup.shutdownGracefully().sync();
+                workerGroup.shutdownGracefully().sync();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -44,6 +45,7 @@ class NettyServerHandler extends ChannelInboundHandlerAdapter{
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         System.out.println("Server received data: " + in.toString(CharsetUtil.UTF_8));
+        System.out.println("i'm " + Thread.currentThread().getName());
         ctx.write(in);
     }
 
