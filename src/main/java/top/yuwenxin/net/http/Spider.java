@@ -23,33 +23,32 @@ public class Spider {
                 .version(HttpClient.Version.HTTP_1_1)
                 .GET()
                 .build();
-        System.out.println(LocalDateTime.now());
+        System.out.println("sync send start: " + LocalDateTime.now());
         long t1 = System.currentTimeMillis();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        long t2 = System.currentTimeMillis();
-        System.out.println(LocalDateTime.now());
+        long t2 = System.currentTimeMillis();;
+        System.out.println("sync send end: " + LocalDateTime.now());
         System.out.println("sync send cost: " + (t2 - t1) + "ms");
         String body = response.body();
 
-        System.out.println(LocalDateTime.now());
+        System.out.println("async send start: " + LocalDateTime.now());
         t1 = System.currentTimeMillis();
         CompletableFuture<HttpResponse<String>> future =
                 client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         t2 = System.currentTimeMillis();
-        System.out.println(LocalDateTime.now());
+        System.out.println("async send end: " + LocalDateTime.now());
         System.out.println("async send cost: " + (t2 - t1) + "ms");
 
 
-        System.out.println(LocalDateTime.now());
-        t1 = System.currentTimeMillis();
+        final long innerStartTime = System.currentTimeMillis();
         future.whenComplete(((stringHttpResponse, throwable) -> {
-            System.out.println(LocalDateTime.now());
+            System.out.println("complete time 1:" + LocalDateTime.now());
             String body1 = stringHttpResponse.body();
+            long innerEndTime = System.currentTimeMillis();
+            System.out.println("async get data cost: " + (innerEndTime - innerStartTime) + "ms");
             System.out.println(body1);
         }));
-        t2 = System.currentTimeMillis();
-        System.out.println(LocalDateTime.now());
-        System.out.println("async get body cost: " + (t2 - t1) + "ms");
+        System.out.println("complete time 0: " + LocalDateTime.now());
         TimeUnit.SECONDS.sleep(3);  // 不sleep等待一下会导致异步响应来不及被处理主线程就die了
 
         System.out.println(body);
