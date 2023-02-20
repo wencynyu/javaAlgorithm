@@ -35,5 +35,12 @@ public class Fields {
                 fields2) {
             System.out.println(f.toString());
         }
+        System.out.println("-----------------");
+        Class clz3 = clz2.getSuperclass();
+        Field[] declaredFields1 = clz3.getDeclaredFields();
+        for (Field f : declaredFields1) {
+            System.out.println(f.toString());
+        }
+
     }
 }

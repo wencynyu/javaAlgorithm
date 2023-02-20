@@ -1,4 +1,4 @@
-package top.yuwenxin.net.netty;
+package top.yuwenxin.net.netty.tcp;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -11,7 +11,6 @@ import io.netty.util.CharsetUtil;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
     public static void main(String[] args) {
@@ -47,11 +46,12 @@ public class NettyClient {
     }
 }
 
-class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
-    @Override protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf)
+    @Override
+    public void channelRead(ChannelHandlerContext channelHandlerContext, Object byteBuf)
         throws Exception {
-        System.out.println("client receive data: " + byteBuf.toString(CharsetUtil.UTF_8));
+        System.out.println("client receive data: " + ((ByteBuf) byteBuf).toString(CharsetUtil.UTF_8));
     }
 
     @Override

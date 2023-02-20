@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 public class SubSet {
+    public static void main(String[] args) {
+        SubSet subSet = new SubSet();
+        List<List<Integer>> res = subSet.subSet(new int[]{1, 2, 3, 4});
+        System.out.println(res.size());
+        res.forEach(System.out::println);
+    }
     /**
      * 求所有子集（子序列）
      * 在许多子序列题目中可以进行暴力解
@@ -20,15 +26,12 @@ public class SubSet {
     }
 
     private void backtrace(int[] nums, int pos, ArrayList<Integer> tmp) {
-        if (tmp.size() > 0){
-            set.add(new ArrayList<>(tmp));
-            return;
-        }
-
         for (int i = pos; i < nums.length; i++) {
             tmp.add(nums[i]);
             backtrace(nums, i + 1, tmp);
             tmp.remove(tmp.size() - 1);
         }
+
+        set.add(new ArrayList<>(tmp));
     }
 }

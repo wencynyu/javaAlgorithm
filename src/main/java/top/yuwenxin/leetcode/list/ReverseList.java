@@ -4,7 +4,7 @@ import top.yuwenxin.stuct.list.ListNode;
 
 public class ReverseList {
     public ListNode reverse(ListNode head){
-        ListNode prev = null, cur = head, next;
+        ListNode prev = null, cur = head, next = null;
 
         while (cur != null){
             next = cur.next;

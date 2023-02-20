@@ -6,12 +6,13 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 
 public class NIOServer {
     public static void main(String[] args) {
-        Charset charset = Charset.forName("utf-8");
+        Charset charset = StandardCharsets.UTF_8;
         InetSocketAddress address = null;
         Selector selector = null;
         ServerSocketChannel channel = null;
@@ -71,11 +72,10 @@ public class NIOServer {
                             CharBuffer charBuffer = charset.decode(readBuffer);
                             System.out.println(charBuffer.array());
 
-                            readBuffer.rewind();
-
                             // 读完数据后根据请求内容返回服务端数据
-                            writeBuffer.put("server response: ".getBytes("utf-8"));
+                            writeBuffer.put("server response: ".getBytes(StandardCharsets.UTF_8));
                             writeBuffer.put(readBuffer);
+                            readBuffer.rewind();
                             readBuffer.clear();
 
                             // 操作+r，通过按位或来进行修改
@@ -84,7 +84,7 @@ public class NIOServer {
 
                         // 当前key为可write
                         if (key.isWritable()) {
-                            Buffers  buffers = (Buffers)key.attachment();
+                            Buffers buffers = (Buffers)key.attachment();
 
                             ByteBuffer writeBuffer = buffers.gerWriteBuffer();
                             writeBuffer.flip();
@@ -110,6 +110,7 @@ public class NIOServer {
                         }
                     }catch (Exception e){
                         System.out.println("service encounter client error");
+                        e.printStackTrace();
                         // 客户端连接出现异常，从selector中移除这个key
                         key.cancel();
                         key.channel().close();

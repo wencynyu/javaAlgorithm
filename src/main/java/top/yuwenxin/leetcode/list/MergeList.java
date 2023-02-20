@@ -3,6 +3,7 @@ package top.yuwenxin.leetcode.list;
 import top.yuwenxin.stuct.list.ListNode;
 
 public class MergeList {
+    @SuppressWarnings("all")
     public ListNode merge(ListNode list1, ListNode list2){
         ListNode l1 = list1;
         ListNode l2 = list2;

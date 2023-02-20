@@ -1,9 +1,13 @@
 package top.yuwenxin.leetcode.array;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MaxCombine {
     Set<String> set = new HashSet<>();
+
     public String largestNumber(int[] nums) {
         backtrace(nums, 0);
         List<String> list = new ArrayList<>(set);
@@ -14,7 +18,7 @@ public class MaxCombine {
     }
 
     private void backtrace(int[] nums, int pos) {
-        if (pos == nums.length){
+        if (pos == nums.length) {
             StringBuilder tmp = new StringBuilder();
             for (int i :
                     nums) {

@@ -10,8 +10,11 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class NIOClient {
+    private static final AtomicInteger INC = new AtomicInteger(0);
+
     public static void main(String[] args) {
         Thread[] threads = new Thread[1];
         for (int i = 0; i < threads.length; i++) {
@@ -34,7 +37,7 @@ public class NIOClient {
                     }
                     System.out.println("当前client完成tcp连接: from " + channel.getLocalAddress() + " to " + channel.getRemoteAddress());
 
-                    for (int t = 0; t < 10; t++) {
+                    for (;;) {
                         int n = selector.select();
                         if (n == 0) {
                             continue;
@@ -71,13 +74,14 @@ public class NIOClient {
 
                                 // 当前key为可write
                                 if (key.isWritable()) {
-                                    writeBuffer.put(("hello server, now is " + t + "\n").getBytes("utf-8"));
+                                    writeBuffer.put(("hello server, now is client-" + INC.getAndIncrement() +  "!!\n").getBytes("utf-8"));
                                     writeBuffer.flip();
                                     sc.write(writeBuffer);
                                     writeBuffer.clear();
                                 }
                             }catch (Exception e){
                                 System.out.println("service encounter server error");
+                                e.printStackTrace();
                                 // 服务端连接出现异常，从selector中移除这个key
                                 key.cancel();
                                 key.channel().close();

@@ -3,7 +3,7 @@ package top.yuwenxin.leetcode.list;
 import top.yuwenxin.stuct.list.ListNode;
 
 public class ReverseListByKGroup {
-    public ListNode reverse(ListNode head, int k){
+    public ListNode reverse(ListNode head, int k) {
         int len = getLen(head);
 
         ListNode dummy = new ListNode(-1);

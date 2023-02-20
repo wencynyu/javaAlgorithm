@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 public class Combine {
+    public static void main(String[] args) {
+        Combine combine = new Combine();
+        List<List<Integer>> res = combine.subSet(new int[]{1, 2, 3, 4}, 3);
+        System.out.println(res.size());
+        res.forEach(System.out::println);
+    }
     /**
      * 求所有组合
      */

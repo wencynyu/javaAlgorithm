@@ -3,20 +3,21 @@ package top.yuwenxin.leetcode.array;
 public class LongestMountain {
     /**
      * 我们把数组 A 中符合下列属性的任意连续子数组 B 称为 “山脉”：
-     *
+     * <p>
      * B.length >= 3
      * 存在 0 < i < B.length - 1 使得 B[0] < B[1] < ... B[i-1] < B[i] > B[i+1] > ... > B[B.length - 1]
+     *
      * @param nums
      * @return
      */
 
     // 暴力解，一共四重循环o（n^4），时间复杂度过高
-    public int longestMountain(int[] nums){
+    public int longestMountain(int[] nums) {
         int res = 0;
         for (int i = 0; i < nums.length - 2; i++) {
             for (int j = i + 2; j < nums.length; j++) {
                 int dist = j - i + 1;
-                if (dist > res && isMountain(nums, i, j)){
+                if (dist > res && isMountain(nums, i, j)) {
                     // System.out.println(res);
                     res = dist;
                 }
@@ -26,7 +27,7 @@ public class LongestMountain {
     }
 
     // 牛逼的双指针+dp解法，o（n）
-    public int longestMountain2(int[] nums){
+    public int longestMountain2(int[] nums) {
         int n = nums.length;
         if (n == 0) {
             return 0;
@@ -53,7 +54,6 @@ public class LongestMountain {
         }
         return ans;
     }
-
 
 
     // nums[begin] ~ nums[end] 为山脉数组
