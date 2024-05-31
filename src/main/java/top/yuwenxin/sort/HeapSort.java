@@ -1,5 +1,7 @@
 package top.yuwenxin.sort;
 
+import top.yuwenxin.utils.ArrayUtil;
+
 public class HeapSort {
     public void heapSort(int[] arr){
         for (int i = arr.length - 1; i > 0; i--) {
@@ -23,9 +25,7 @@ public class HeapSort {
             }
             //交换父节点与左右子节点中的最大值
             if (arr[i] < arr[child]) {
-                int temp = arr[i];
-                arr[i] = arr[child];
-                arr[child] = temp;
+                ArrayUtil.swap(arr, i, child);
             }
         }
         

@@ -1,5 +1,6 @@
 package top.yuwenxin.sort;
 
+import top.yuwenxin.utils.ArrayUtil;
 import top.yuwenxin.utils.SortUtil;
 
 import java.util.Arrays;
@@ -25,14 +26,15 @@ public class QuickSort {
     }
 
     private int getMid(int[] arr, int begin, int end) {
-        int base = arr[begin];
-        while (begin < end){
-            while (begin < end && arr[end] > base) end--;
-            arr[begin] = arr[end];
-            while (begin < end && arr[begin] < base) begin++;
-            arr[end] = arr[begin];
+        int pivot = arr[begin];
+        int pivotIndex = begin;
+        for (int i = begin + 1; i <= end; i++) {
+            if (arr[i] < pivot) {
+                pivotIndex++;
+                ArrayUtil.swap(arr, i, pivotIndex);
+            }
         }
-        arr[begin] = base;
-        return begin;
+        ArrayUtil.swap(arr, pivotIndex, begin);
+        return pivotIndex;
     }
 }
