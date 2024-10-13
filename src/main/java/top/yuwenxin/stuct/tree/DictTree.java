@@ -1,4 +1,4 @@
-package top.yuwenxin.stuct;
+package top.yuwenxin.stuct.tree;
 
 import java.util.List;
 

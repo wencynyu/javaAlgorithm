@@ -10,10 +10,10 @@ import java.util.Set;
 public class SequenceProblem {
 
     /**
-     * LCS最长公共子串
+     * 最长公共子串
      */
-    // 暴力解
-    public int lcs(String str1, String str2) {
+    // 暴力解 O(mn^3)
+    public int longestCommonSubstring(String str1, String str2) {
         String shorter = str1.length() <= str2.length() ? str1 : str2;
         String longer = str1.length() > str2.length() ? str1 : str2;
 
@@ -28,8 +28,8 @@ public class SequenceProblem {
         return res;
     }
 
-    // dp优化
-    public int lcs2(String str1, String str2) {
+    // dp优化 O(mn)
+    public int longestCommonSubstring2(String str1, String str2) {
         int len1 = str1.length();
         int len2 = str2.length();
         int res = 0;
@@ -50,10 +50,10 @@ public class SequenceProblem {
     }
 
     /**
-     * LCS最长公共子序列
+     * 最长公共子序列
      */
     // 暴力解
-    public int lcs11(int[] nums1, int[] nums2) {
+    public int longestCommonSubsequence(int[] nums1, int[] nums2) {
         SubSet subSet = new SubSet();
         Set<List<Integer>> subSet1 = new HashSet<>(subSet.subSet(nums1));
         Set<List<Integer>> subSet2 = new HashSet<>(subSet.subSet(nums2));
@@ -68,23 +68,22 @@ public class SequenceProblem {
     }
 
     // dp优化
-    public int lcs12(int[] nums1, int[] nums2) {
+    public int longestCommonSubsequence2(int[] nums1, int[] nums2) {
         // todo:lcs12
         return 0;
     }
 
     /**
-     * LCS最长连续子序列
+     * 最长连续子序列
      */
     // 暴力解
-    public int lcs21(int[] nums1, int[] nums2) {
+    public int longestContinuousSubsequence(int[] nums) {
         SubSet subSet = new SubSet();
-        Set<List<Integer>> subSet1 = new HashSet<>(subSet.subSet(nums1));
-        Set<List<Integer>> subSet2 = new HashSet<>(subSet.subSet(nums2));
+        Set<List<Integer>> subSet1 = new HashSet<>(subSet.subSet(nums));
         int res = 0;
         for (List<Integer> list :
                 subSet1) {
-            if (subSet2.contains(list) && isContinuous(list)) {
+            if (isContinuous(list)) {
                 res = Math.max(res, list.size());
             }
         }
@@ -99,7 +98,7 @@ public class SequenceProblem {
     }
 
     // dp优化
-    public int lcs22(int[] nums1, int[] nums2) {
+    public int longestContinuousSubsequence2(int[] nums) {
         // todo:lcs22
         return 0;
     }
@@ -108,14 +107,13 @@ public class SequenceProblem {
      * LIS最长递增子序列
      */
     // 暴力解
-    public int lis(int[] nums1, int[] nums2) {
+    public int longestIncreaseSubsequence(int[] nums) {
         SubSet subSet = new SubSet();
-        Set<List<Integer>> subSet1 = new HashSet<>(subSet.subSet(nums1));
-        Set<List<Integer>> subSet2 = new HashSet<>(subSet.subSet(nums2));
+        Set<List<Integer>> subSet1 = new HashSet<>(subSet.subSet(nums));
         int res = 0;
         for (List<Integer> list :
                 subSet1) {
-            if (subSet2.contains(list) && isIncreament(list)) {
+            if (isIncreament(list)) {
                 res = Math.max(res, list.size());
             }
         }
@@ -130,8 +128,21 @@ public class SequenceProblem {
     }
 
     // dp优化
-    public int lis2(int[] nums1, int[] nums2) {
+    public int longestIncreaseSubsequence2(int[] nums1, int[] nums2) {
         // todo:lis2
         return 0;
+    }
+
+    public int longestContinuousIncreaseSubsequence(int[] nums) {
+        SubSet subSet = new SubSet();
+        Set<List<Integer>> subSet1 = new HashSet<>(subSet.subSet(nums));
+        int res = 0;
+        for (List<Integer> list :
+                subSet1) {
+            if (isIncreament(list) && isContinuous(list)) {
+                res = Math.max(res, list.size());
+            }
+        }
+        return res;
     }
 }
